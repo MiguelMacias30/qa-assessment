@@ -23,9 +23,9 @@ npx playwright test
 ```
 
 ### Test Structure
-tests/                 # End-to-end test cases
-pages/                 # Page Object Model abstractions
-playwright.config.ts   # Playwright configuration
+tests/                  *End-to-end test cases
+pages/                  *Page Object Model abstractions
+playwright.config.ts    *Playwright configuration
 
 ### Notes
 Tests were designed based on exploratory testing of the SauceDemo application and aligned with the provided test plan.
