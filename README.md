@@ -17,6 +17,7 @@ The following tools and technologies were selected to ensure reliability, readab
 - 🟦 **TypeScript** — Strong typing and maintainable test code  
 - 🟢 **Node.js** — Test runtime and dependency management  
 - ⚙️ **GitHub Actions** — Continuous Integration (CI)
+- 📊 **Amikoo QA** — Test execution reporting and coverage tracking
 
 ---
 
@@ -43,7 +44,51 @@ BUG_REPORT.md           -->  Documented bugs found during exploratory testing
 .github/workflows/      -->  CI pipeline configuration
 ```
 
-### 🧠 QA Approach & Notes
+---
+
+## 📊 Amikoo QA Reporter
+
+This project uses the [Amikoo QA reporter](https://www.npmjs.com/package/@muuktest/amikoo-reporter) to send test execution results to the Amikoo QA dashboard automatically after every run.
+
+### Setup
+
+1. **Install the reporter** (already included in `devDependencies`):
+   ```bash
+   npm install
+   ```
+
+2. **Set your Amikoo API key** as an environment variable:
+   ```bash
+   export AMIKOO_KEY=your_api_key_here
+   ```
+   You can find your API key in your Amikoo QA account settings.
+
+   For local runs, you can add it to a `.env` file (make sure it is listed in `.gitignore`):
+   ```
+   AMIKOO_KEY=your_api_key_here
+   ```
+
+3. **Run tests** — results will be reported automatically:
+   ```bash
+   npx playwright test
+   ```
+
+### CI / GitHub Actions
+
+To enable reporting in CI, add `AMIKOO_KEY` as a repository secret in GitHub:
+
+1. Go to **Settings → Secrets and variables → Actions**
+2. Click **New repository secret**
+3. Name it `AMIKOO_KEY` and paste your API key
+4. Reference it in your workflow:
+   ```yaml
+   env:
+     AMIKOO_KEY: ${{ secrets.AMIKOO_KEY }}
+   ```
+
+---
+
+## 🧠 QA Approach & Notes
 
 ✅ Tests are independent and can run in any order
 
@@ -56,7 +101,7 @@ BUG_REPORT.md           -->  Documented bugs found during exploratory testing
 🔁 CI runs automatically on every push to main, ensuring fast feedback
 
 
-### 📈 CI / CD
+## 📈 CI / CD
 
 A GitHub Actions workflow is configured to:
 
@@ -69,7 +114,7 @@ Upload test artifacts (reports/screenshots) for review
 This ensures test results are visible without cloning the repository.
 
 
-### 🐞 Bug Reporting
+## 🐞 Bug Reporting
 
 Identified issues found during exploratory testing are documented in **BUG_REPORT.md**.
 
@@ -81,10 +126,7 @@ Each bug report includes:
 - Evidence or additional notes
 
 
-### ✅ Final Notes
+## ✅ Final Notes
 This submission focuses on quality over quantity: clean tests, clear structure, and realistic QA practices similar to what I would apply in a production environment.
 
 Thanks for reviewing — happy to walk through the implementation or decisions made! 🚀
-
-
-
